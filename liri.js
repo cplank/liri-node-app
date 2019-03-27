@@ -13,13 +13,6 @@ var axios = require("axios");
 
 //command is process.argv[2]
 
-
-//When a user types conert-this <band name> do an axios call
-//to bandsintwon and return the name of the venue, venue location
-//and the date of the event using moment to format "MM/DD/YYYY"
-
-var nodeArgs = process.argv;
-
 let command = process.argv[2];
 checkCommand();
 
@@ -31,7 +24,7 @@ function checkCommand() {
         // spotifyThis();
     }
     else if (command === "movie-this") {
-        // movieThis();
+        movieThis();
     }
     else if (command === "do-what-it-says") {
         // doWhatItSays();
@@ -41,25 +34,62 @@ function checkCommand() {
     }
 }
 
-var userInput = "";
-
-for (let i = 2; i < nodeArgs.length; i++) {
-    if (i > 2 && i < nodeArgs.length) {
-        userInput = userInput + "+" + nodeArgs[i];
-    }
-    else {
-        userInput += nodeArgs[i];
-    }
+function fixUserInput() {
+    let input = "";
+    var nodeArgs = process.argv;
+    for (let i = 3; i < nodeArgs.length; i++) {
+        if (i > 3 && i < nodeArgs.length) {
+            input = input + "+" + nodeArgs[i];
+        }
+        else {
+            input += nodeArgs[i];
+        }
+    } return input;
 }
 
 function concertThis() {
+
+    let userInput = fixUserInput();
+
     var queryUrl = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp";
 
     console.log(queryUrl);
 
     axios.get(queryUrl).then(
         function (response) {
-            console.log(response)
+            console.log(response.data[0].venue)
         }
     )
 }
+
+function movieThis() {
+    let userInput = fixUserInput();
+
+    var queryUrl = "http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy"
+    console.log(queryUrl)
+
+    axios.get(queryUrl).then(
+        function (response) {
+            // console.log(response);
+            let omdb = response.data
+            let title = omdb.Title;
+            console.log(title);
+            let year = omdb.Year;
+            console.log(year);
+            let imdb = omdb.Ratings[0].Value
+            console.log(imdb)
+            let rottenTomatoes = omdb.Ratings[1].Value
+            console.log(rottenTomatoes);
+            let country = omdb.Country
+            console.log(country)
+            let language = omdb.Language
+            console.log(language);
+            let plot = omdb.Plot
+            console.log(plot)
+            let actors = omdb.Actors
+            console.log(actors)
+
+        }
+    )
+}
+
