@@ -83,6 +83,7 @@ function concertThis(fileArgs) {
     axios.get(queryUrl).then(
         //Object returned from axios
         function (response) {
+            console.log("\n\r");
             console.log(`"Here's where ${userInput} is playing next:`)
             console.log(response.data[0].venue.name)
             console.log(response.data[0].venue.country)
@@ -107,6 +108,7 @@ function movieThis(fileArgs) {
             //saved the response object in a variable to make it a little easier to call it
             //several times below
             let omdb = response.data
+            console.log("\n\r");
             console.log(`Here's information on ${userInput}:`)
             console.log("Title: ", omdb.Title);
             console.log("Release Year:", omdb.Year);
@@ -131,8 +133,8 @@ function spotifyThis(fileArgs) {
         spotify
             .request('https://api.spotify.com/v1/tracks/7qUn6eEOgUpm0ZDWAPu1ND')
             .then(function (data) {
-
-                console.log("You didn't search for anything, so you must have wanted this:")
+                console.log("\n\r");
+                console.log("♫♪ It's not Seattle it's you ♫♪")
                 console.log("Artist:", data.artists[0].name)
                 console.log("Song:", data.name)
                 console.log("Album:", data.album.name)
