@@ -72,6 +72,10 @@ function concertThis(fileArgs) {
     //userInput becomes the input return from fixUserInput. This is the format for the queryUrl
     let userInput = fixUserInput(fileArgs);
 
+    if (userInput === "") {
+        userInput = "Death Cab for Cutie"
+    }
+
     //this is the url that axios is using to call the bandsintown API
     var queryUrl = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp";
 
@@ -79,7 +83,7 @@ function concertThis(fileArgs) {
     axios.get(queryUrl).then(
         //Object returned from axios
         function (response) {
-            console.log(`"Here's where ${userInput} is playing:`)
+            console.log(`"Here's where ${userInput} is playing next:`)
             console.log(response.data[0].venue.name)
             console.log(response.data[0].venue.country)
             console.log(response.data[0].venue.city)
