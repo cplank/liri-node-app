@@ -172,12 +172,11 @@ function spotifyThis(fileArgs) {
                 let album = spotifyObj[i].album.name
                 for (j = 0; j < artists.length; j++) {
                     let artistName = artists[j].name;
+                    console.log("\n\r");
                     console.log("Artist(s)", artistName)
                     console.log("Song:", songName)
                     console.log("Preview:", previewLink)
                     console.log("Album:", album)
-                    //space to separate between the five songs
-                    console.log("\n\r");
                 }
             }
         });
